@@ -1,12 +1,23 @@
-# This project was made with the assistance of Github Copilot (autocompletions and next edit suggestions)
-
+from prettytable import PrettyTable
 from library_books import library_books
 from datetime import datetime, timedelta
 
 # -------- Level 1 --------
-# TODO: Create a function to view all books that are currently available
-# Output should include book ID, title, and author
+# Function that shows all books that are currently available
+# Output includes book ID, title, and author
 
+def show_available_books():
+    # Create table with headers
+    table = PrettyTable()
+    table.field_names = ["Book ID", "Title", "Author"]
+
+    # Append row to table for each available book
+    for book in library_books:
+        if book["available"]:
+            table.add_row([book["id"], book["title"], book["author"]])
+    
+    # Show table
+    print(table)
 
 # -------- Level 2 --------
 # TODO: Create a function to search books by author OR genre
@@ -39,10 +50,9 @@ from datetime import datetime, timedelta
 # -------- Optional Advanced Features --------
 # You can implement these to move into Tier 4:
 # - Add a new book (via input) to the catalog
-# - Partial title/author search
+# - Partial title/author/genre search
 # - Save/load catalog to file (CSV or JSON)
 # - Number of copies total, available, and unavailable
 
 if __name__ == "__main__":
-    # You can use this space to test your functions
-    pass
+    show_available_books()

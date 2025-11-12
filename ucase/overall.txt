@@ -1,0 +1,14 @@
+Understand:
+Make a fully featured library checkout system. Allow checkouts and check-ins of books, and full view and manipulation of book objects. Create a simple CLI and GUI for management.
+
+Clues:
+The module datetime should be used to set checkout dates. Tkinter should be used for GUI. Classes should be used for book management.
+
+Assemble:
+This is done in UCASE for each individual level.
+
+Solve:
+The location for solved code is shown in the UCASE file for each individual level.
+
+Examine:
+Will be completed after project is done. (If you're still seeing this, I either never finished or forgot about this.)

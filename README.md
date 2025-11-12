@@ -1,5 +1,7 @@
 # Elite 101 Coding Assesment - Class of Fall 2025
 
+*Disclaimer: This project was made with the assistance of GitHub Copilot autocompletions and next edit suggestions.*
+
 This is the final coding assesment for the Code2College Fall 2025 Elite 101 interview prep class.
 
 ## Library Inventory and Checkout Manager
@@ -14,7 +16,7 @@ The purpose of this code is to make a Library Inventory and Checkout manager uti
 ### Level 2
 
 - Allow the user to search for books.
-- Return books with matching names and authors.
+- Return books with matching authors and genres.
 - Make the search case-insensitive.
 
 ### Level 3
@@ -45,7 +47,7 @@ The purpose of this code is to make a Library Inventory and Checkout manager uti
 ### Level 6 (Advanced Features)
 
 - Add new book
-- Partial title and author search
+- Partial title, author, and genre search
 - Save & Load catalog to CSV
 - Add multiple copies functionality
 
