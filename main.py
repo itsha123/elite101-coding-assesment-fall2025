@@ -1,3 +1,5 @@
+# This project was made with the assistance of Github Copilot (autocompletions and next edit suggestions)
+
 from library_books import library_books
 from datetime import datetime, timedelta
 
@@ -37,10 +39,9 @@ from datetime import datetime, timedelta
 # -------- Optional Advanced Features --------
 # You can implement these to move into Tier 4:
 # - Add a new book (via input) to the catalog
-# - Sort and display the top 3 most checked-out books
 # - Partial title/author search
 # - Save/load catalog to file (CSV or JSON)
-# - Anything else you want to build on top of the system!
+# - Number of copies total, available, and unavailable
 
 if __name__ == "__main__":
     # You can use this space to test your functions
