@@ -20,9 +20,22 @@ def show_available_books():
     print(table)
 
 # -------- Level 2 --------
-# TODO: Create a function to search books by author OR genre
-# Search should be case-insensitive
-# Return a list of matching books
+# Function that returns books with same author or genre
+# Search is case-insensitive
+# Returns a list of matching books
+
+def search_books(query):
+    # Empty list to hold matching books
+    matching_books = []
+
+    # Check each book for matching author or genre
+    # If matching, append to matching_books list
+    for book in library_books:
+        if (query.lower() == book["author"].lower() or query.lower() == book["genre"].lower()):
+            matching_books.append(book)
+    
+    # Return matching books
+    return matching_books
 
 
 # -------- Level 3 --------

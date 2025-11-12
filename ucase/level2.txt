@@ -1,0 +1,19 @@
+Understand:
+Allow the user to search for books, and return books with exactly matching authors or genres. It should be exactly matching since a later feature says partial search. It should be case insensitive.
+
+Clues:
+It says return, so this function will have to return a list instead of printing. I'll use .lower() since it says case insensitive.
+
+Assemble:
+function search_books(query):
+    matching_books = []
+    for book in library_books:
+        if author is equal to query.lower or if genre is equal to query.lower:
+            append book to matching_books
+    return matching_books
+
+Solve:
+The code is in main.py under the level 2 comment.
+
+Examine:
+The code is functional and performant, but is not very readable. Instead of using .lower() on the query in the if statement, I could have reassigned query to query.lower(). And instead of doing book["author"].lower() I could have made a variable called author equal to that and used it in the if statement, further improving readability.

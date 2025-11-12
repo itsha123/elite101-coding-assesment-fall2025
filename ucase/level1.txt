@@ -5,12 +5,13 @@ Clues:
 I will have to iterate through the list of books using a for loop to print all of them. I will use prettytable to make it look better.
 
 Assemble:
-table = prettytable
-table.toprow(Book ID, Title, Author)
-for book in library_books:
-    if available:
-        table.append(bookid, title, author)
-show table
+function show_available_books():
+    table = prettytable
+    table.toprow(Book ID, Title, Author)
+    for book in library_books:
+        if available:
+            table.append(bookid, title, author)
+    print table
 
 Solve:
 The code is in main.py under the level 1 comment.

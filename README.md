@@ -16,7 +16,7 @@ The purpose of this code is to make a Library Inventory and Checkout manager uti
 ### Level 2
 
 - Allow the user to search for books.
-- Return books with matching authors and genres.
+- Return books with matching authors or genres.
 - Make the search case-insensitive.
 
 ### Level 3
