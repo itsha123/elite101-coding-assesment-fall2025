@@ -9,8 +9,8 @@ function show_available_books():
     table = prettytable
     table.toprow(Book ID, Title, Author)
     FOR book IN library_books:
-        IF available:
-            table.append(bookid, title, author)
+        IF book[available]:
+            table.append(book[id], book[title], book[author])
     PRINT table
 
 Solve:
@@ -28,5 +28,5 @@ def show_available_books() -> None:
     # Show table.
     print(table)
 
-Evaluate:
+Examine:
 The code is pretty streamlined, performant, and readable. Maybe an "Available Books" title for the table might be useful.

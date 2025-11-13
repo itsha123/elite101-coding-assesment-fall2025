@@ -8,7 +8,7 @@ This project was made with the assistance of GitHub Copilot autocompletions and 
 
 Google AI Overview was used to decide on psuedocode conventions, and ChatGPT was used to decide to use Ruff for Python standard conventions.
 
-GitHub Copilot was used to help make the pyproject.toml file, and to help fix issues found by Ruff.
+GitHub Copilot was used to help make the pyproject.toml file, to help fix issues found by Ruff, and to help fix bugs.
 
 ## Library Inventory and Checkout Manager
 
@@ -34,7 +34,7 @@ The purpose of this code is to make a Library Inventory and Checkout manager uti
 
 ### Level 4
 
-- Write a function to return book by ID.
+- Write a function to return book by book ID.
 - Reset availability and due date.
 - Write function to list all overdue books.
 

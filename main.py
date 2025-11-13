@@ -1,7 +1,7 @@
 """Module that contains all the code for a simple library book management system."""
 # Used Ruff docs to figure out how to fix issues found by Ruff
 # Used Google AI Overview to find and learn how to use PrettyTable
-# Used Google AI Overview to learn how to use timedelta
+# Used Google AI Overview and Python docs to learn how to use timedelta and datetime
 from datetime import datetime, timedelta, timezone
 
 from prettytable import PrettyTable
@@ -40,7 +40,7 @@ def search_books(query: str) -> list[Book]:
     # If matching, append to matching_books list.
     for book in library_books:
         if (query.lower() == book["author"].lower() or query.lower() == book["genre"].lower()):  # noqa: E501
-            matching_books.append(book)  # noqa: PERF401
+            matching_books.append(book)
 
     # Return matching books.
     return matching_books
@@ -74,11 +74,40 @@ def checkout_book(book_id: str) -> None:
 
 
 # -------- Level 4 --------
-# TODO: Create a function to return a book by ID
-# Set its availability to True and clear the due_date
+# Function that returns a book by its ID.
+# Sets the book's availability to True and clears the due date.
 
-# TODO: Create a function to list all overdue books
-# A book is overdue if its due_date is before today AND it is still checked out
+def return_book(book_id: str) -> None:
+    """Return a book by its ID."""
+    # Find the book by its ID.
+    for book in library_books:
+        if book["id"] == book_id:
+            # Set book availability to true.
+            # Clear due date.
+            book["available"] = True
+            book["due_date"] = None
+
+# Function that shows all overdue books.
+# A book is overdue if its due_date is before today AND it is still checked out.
+
+def show_overdue_books() -> None:
+    """Display all overdue books in a table format."""
+    # Create table with headers.
+    table = PrettyTable()
+    table.field_names = ["Book ID", "Title", "Author"]
+
+    # Append row to table for each overdue book.
+    for book in library_books:
+        if not book["available"]:
+            # Get time difference between due date and now.
+            time_difference: timedelta = datetime.fromisoformat(book["due_date"]).replace(tzinfo=timezone.utc) - datetime.now(tz=timezone.utc)  # noqa: E501
+
+            # If time difference is negative, add book to table.
+            if time_difference.total_seconds() < 0:
+                table.add_row([book["id"], book["title"], book["author"]])
+
+    # Show table.
+    print(table)
 
 
 # -------- Level 5 --------
@@ -93,4 +122,4 @@ def checkout_book(book_id: str) -> None:
 # - Number of copies total, available, and unavailable
 
 if __name__ == "__main__":
-    checkout_book("B1")
+    show_overdue_books()

@@ -1,0 +1,56 @@
+Understand: Create a function that takes a book ID and returns it. To return, it sets the book's availability to True and sets the due date to None. Create another function that lists all overdue books. A book is overdue if the due date is before now and it is still checked out. When going from assemble to solve, implement any suggestions by Ruff.
+
+Clues: I will be using datetime and timedelta for this. Since the date is stored as a string for now, I will have to convert that into a datetime object. I will use a for loop to iterate through all the books to find one with the book ID. I will use prettytable again to list all the overdue books.
+
+Assemble:
+function return_book(book_id):
+    FOR book in library_books:
+        IF book[id] == book_id:
+            book[available] = True
+            book[due_date] = None
+
+function show_overdue_books():
+    table = prettytable
+    table.toprow(Book ID, Title, Author)
+    FOR book in library_books:
+        IF NOT book[available]:
+            time_difference = book[due_date].fromisoformat() - datetime.now()
+            IF time_difference.total_seconds() < 0:
+                table.append(book[id], book[title], book[author])
+    PRINT table
+
+Solve:
+def return_book(book_id: str) -> None:
+    """Return a book by its ID."""
+    # Find the book by its ID.
+    for book in library_books:
+        if book["id"] == book_id:
+            # Set book availability to true.
+            # Clear due date.
+            book["available"] = True
+            book["due_date"] = None
+
+# Function that shows all overdue books.
+# A book is overdue if its due_date is before today AND it is still checked out.
+
+def show_overdue_books() -> None:
+    """Display all overdue books in a table format."""
+    # Create table with headers.
+    table = PrettyTable()
+    table.field_names = ["Book ID", "Title", "Author"]
+
+    # Append row to table for each overdue book.
+    for book in library_books:
+        if not book["available"]:
+            # Get time difference between due date and now.
+            time_difference: timedelta = datetime.fromisoformat(book["due_date"]).replace(tzinfo=timezone.utc) - datetime.now(tz=timezone.utc)  # noqa: E501
+
+            # If time difference is negative, add book to table.
+            if time_difference.total_seconds() < 0:
+                table.add_row([book["id"], book["title"], book["author"]])
+
+    # Show table.
+    print(table)
+
+Examine:
+The code is performant, and functional, but the readability is not very good. The return_book function is fine in all aspects, although confirmation might be helpful. The show_overdue_books function is very unreadable due to some very long lines.

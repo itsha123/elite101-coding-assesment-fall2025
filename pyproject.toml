@@ -5,4 +5,4 @@ exclude = [
 
 [tool.ruff.lint]
 select = ["ALL"]
-ignore = ["T201"]
+ignore = ["T201", "PERF401"]
