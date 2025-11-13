@@ -46,7 +46,7 @@ The purpose of this code is to make a Library Inventory and Checkout manager uti
 
 ### Level 6 (Advanced Features)
 
-- Add new book
+- Add new book functionality
 - Partial title, author, and genre search
 - Save & Load catalog to CSV
 - Add multiple copies functionality

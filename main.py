@@ -1,5 +1,7 @@
+# Used Google AI Overview to find and learn how to use PrettyTable
 from prettytable import PrettyTable
 from library_books import library_books
+# Used Google AI Overview to learn how to use timedelta
 from datetime import datetime, timedelta
 
 # -------- Level 1 --------
@@ -47,6 +49,20 @@ def search_books(query):
 # If it is not available:
 #   - Print a message saying it's already checked out
 
+def checkout_book(book_id):
+    # Find the book by ID
+    for book in library_books:
+        if book["id"] == book_id:
+            # Check if book is available
+            if not book["available"]:
+                # Print unavailable message
+                print("Book is unavailable.")
+            else:
+                # Set book availability to false, increment checkouts by 1, and set due date to 2 weeks from now
+                book["available"] = False
+                book["checkouts"] += 1
+                book["due_date"] = datetime.now() + timedelta(weeks=2)
+
 
 # -------- Level 4 --------
 # TODO: Create a function to return a book by ID
@@ -68,4 +84,4 @@ def search_books(query):
 # - Number of copies total, available, and unavailable
 
 if __name__ == "__main__":
-    show_available_books()
+    checkout_book("B1")

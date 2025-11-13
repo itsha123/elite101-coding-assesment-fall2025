@@ -14,7 +14,18 @@ function show_available_books():
     print table
 
 Solve:
-The code is in main.py under the level 1 comment.
+def show_available_books():
+    # Create table with headers
+    table = PrettyTable()
+    table.field_names = ["Book ID", "Title", "Author"]
+
+    # Append row to table for each available book
+    for book in library_books:
+        if book["available"]:
+            table.add_row([book["id"], book["title"], book["author"]])
+    
+    # Show table
+    print(table)
 
 Evaluate:
 The code is pretty streamlined, performant, and readable. Maybe an "Available Books" title for the table might be useful.
