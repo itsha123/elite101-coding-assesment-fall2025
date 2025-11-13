@@ -1,8 +1,14 @@
 # Elite 101 Coding Assesment - Class of Fall 2025
 
-*Disclaimer: This project was made with the assistance of GitHub Copilot autocompletions and next edit suggestions.*
-
 This is the final coding assesment for the Code2College Fall 2025 Elite 101 interview prep class.
+
+## Disclaimers
+
+This project was made with the assistance of GitHub Copilot autocompletions and next edit suggestions.
+
+Google AI Overview was used to decide on psuedocode conventions, and ChatGPT was used to decide to use Ruff for Python standard conventions.
+
+GitHub Copilot was used to help make the pyproject.toml file, and to help fix issues found by Ruff.
 
 ## Library Inventory and Checkout Manager
 

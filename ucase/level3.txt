@@ -1,33 +1,36 @@
-Understand: Check if book is available. If not, print a message. If so, set book as unavailable, increment book's checkout number, and set due date two weeks from now.
+Understand: Check if book is available. If not, print a message. If so, set book as unavailable, increment book's checkout number, and set due date two weeks from now. When going from assemble to solve, implement any suggestions by Ruff.
 
 Clues:
 The instructions say to use datetime, so I'll use datetime to find the current date, and since timedelta was imported in the starter code, i'll use that to find the date two weeks from now.
 
 Assemble:
 function checkout_book(book_id):
-    for book in library_books:
-        if id of book is equal to book_id
-            if book is unavailable:
-                print Book is unavailable.
-            else:
-                set book as unavailable
-                increment book's checkout number
-                set book duedate to datetime.now() + timedelta(weeks=2)
+    FOR book IN library_books:
+        IF book[id] == book_id:
+            IF NOT book[available]:
+                PRINT Book is unavailable.
+            ELSE:
+                book[available] = unavailable
+                book[checkouts] += 1
+                book[due_date] = datetime.now() + timedelta(weeks=2)
 
 Solve:
-def checkout_book(book_id):
-    # Find the book by ID
+def checkout_book(book_id: str) -> None:
+    """Checkout a book by its ID."""
+    # Find the book by its ID.
     for book in library_books:
         if book["id"] == book_id:
-            # Check if book is available
+            # Check if book is available.
             if not book["available"]:
-                # Print unavailable message
+                # Print unavailable message.
                 print("Book is unavailable.")
             else:
-                # Set book availability to false, increment checkouts by 1, and set due date to 2 weeks from now
+                # Set book availability to false.
+                # Increment checkouts by 1.
+                # Set due date to 2 weeks from now.
                 book["available"] = False
                 book["checkouts"] += 1
-                book["due_date"] = datetime.now() + timedelta(weeks=2)
+                book["due_date"] = datetime.now(tz=timezone.utc) + timedelta(weeks=2)
 
 Examine:
 The code is functional and performant, but is not very readable. Maybe some blank lines might have helped, but due to the code structure in this case there isn't much that can be done.

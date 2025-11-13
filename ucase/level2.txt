@@ -1,5 +1,5 @@
 Understand:
-Allow the user to search for books, and return books with exactly matching authors or genres. It should be exactly matching since a later feature says partial search. It should be case insensitive.
+Allow the user to search for books, and return books with exactly matching authors or genres. It should be exactly matching since a later feature says partial search. It should be case insensitive. When going from assemble to solve, implement any suggestions by Ruff.
 
 Clues:
 It says return, so this function will have to return a list instead of printing. I'll use .lower() since it says case insensitive.
@@ -7,23 +7,24 @@ It says return, so this function will have to return a list instead of printing.
 Assemble:
 function search_books(query):
     matching_books = []
-    for book in library_books:
-        if author is equal to query.lower or if genre is equal to query.lower:
-            append book to matching_books
-    return matching_books
+    FOR book IN library_books:
+        IF book[author].lower() == query.lower() OR book[genre].lower() == query.lower():
+            matching_books.append(book)
+    RETURN matching_books
 
 Solve:
-def search_books(query):
-    # Empty list to hold matching books
-    matching_books = []
+def search_books(query: str) -> list[Book]:
+    """Search for books by matching author or genre."""
+    # Empty list to hold matching books.
+    matching_books: list[Book] = []
 
-    # Check each book for matching author or genre
-    # If matching, append to matching_books list
+    # Check each book for matching author or genre.
+    # If matching, append to matching_books list.
     for book in library_books:
-        if (query.lower() == book["author"].lower() or query.lower() == book["genre"].lower()):
-            matching_books.append(book)
-    
-    # Return matching books
+        if (query.lower() == book["author"].lower() or query.lower() == book["genre"].lower()):  # noqa: E501
+            matching_books.append(book)  # noqa: PERF401
+
+    # Return matching books.
     return matching_books
 
 Examine:

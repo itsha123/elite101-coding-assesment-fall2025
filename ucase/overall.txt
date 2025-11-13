@@ -1,5 +1,5 @@
 Understand:
-Make a fully featured library checkout system. Allow checkouts and check-ins of books, and full view and manipulation of book objects. Create a simple CLI and GUI for management.
+Make a fully featured library checkout system. Allow checkouts and check-ins of books, and full view and manipulation of book objects. Create a simple CLI and GUI for management. Follow best practices using Ruff.
 
 Clues:
 The module datetime should be used to set checkout dates. Tkinter should be used for GUI. Classes should be used for book management.

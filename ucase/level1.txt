@@ -1,5 +1,5 @@
 Understand:
-Create a function that prints all available books with their book ID, title, and author.
+Create a function that prints all available books with their book ID, title, and author. When going from assemble to solve, implement any suggestions by Ruff.
 
 Clues:
 I will have to iterate through the list of books using a for loop to print all of them. I will use prettytable to make it look better.
@@ -8,23 +8,24 @@ Assemble:
 function show_available_books():
     table = prettytable
     table.toprow(Book ID, Title, Author)
-    for book in library_books:
-        if available:
+    FOR book IN library_books:
+        IF available:
             table.append(bookid, title, author)
-    print table
+    PRINT table
 
 Solve:
-def show_available_books():
-    # Create table with headers
+def show_available_books() -> None:
+    """Display all available books in a table format."""
+    # Create table with headers.
     table = PrettyTable()
     table.field_names = ["Book ID", "Title", "Author"]
 
-    # Append row to table for each available book
+    # Append row to table for each available book.
     for book in library_books:
         if book["available"]:
             table.add_row([book["id"], book["title"], book["author"]])
-    
-    # Show table
+
+    # Show table.
     print(table)
 
 Evaluate:

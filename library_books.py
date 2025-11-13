@@ -1,3 +1,17 @@
+from datetime import datetime
+from typing import TypedDict
+
+class Book(TypedDict):
+    id: str
+    title: str
+    author: str
+    genre: str
+    available: bool
+    checkouts: int
+    due_date: datetime | str | None
+
+library_books: list[Book]
+
 library_books = [
     {
         "id": "B1",
