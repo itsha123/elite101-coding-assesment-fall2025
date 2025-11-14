@@ -1,7 +1,7 @@
 from datetime import datetime
 from typing import TypedDict
 
-class Book(TypedDict):
+class OldBook(TypedDict):
     id: str
     title: str
     author: str
@@ -10,7 +10,7 @@ class Book(TypedDict):
     checkouts: int
     due_date: datetime | str | None
 
-library_books: list[Book]
+library_books: list[OldBook]
 
 library_books = [
     {

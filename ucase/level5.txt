@@ -1,15 +1,142 @@
-"""Module that contains all the code for a simple library book management system."""
-# Used Ruff docs to figure out how to fix issues found by Ruff
-# Used Google AI Overview to find and learn how to use PrettyTable
-# Used Google AI Overview and Python docs to learn how to use timedelta and datetime
-# Used GeeksforGeeks to learn how to use classes and objects
-from datetime import datetime, timedelta, timezone
+Understand: Create Book class (halfway done already) and make books objects, not dictionaries. Add applicable methods to book class. Create function to convert dictionaries to objects, and store in list. Convert remaining functions to use new book list. Improve checkout and return functions by adding confirmation messages and checks if book is already available/unavailable. Create function that shows top 3 most checked out books. Create simple CLI that shows available books, allows search, allows checkout, allows return, shows overdue books, and shows top 3 most checked out books. When going from assemble to solve, implement any suggestions by Ruff.
 
-from prettytable import PrettyTable
+Clues:
+I will be using classes since the requirements said so. I will also be using a loop and a half structure for the CLI to allow the user to select multiple options until they're done with the program. I will be using lists to store all the books I can search through them.
 
-from library_books import library_books
+Assemble:
+class Book:
+    function init(self, 
+    book_id, 
+    title, 
+    author, 
+    genre, 
+    available, 
+    due_date, 
+    checkouts):
+        self.book_id = book_id
+        self.title = title
+        self.author = author
+        self.genre = genre
+        self.available = available
+        self.due_date = due_date
+        self.checkouts = checkouts
+    
+    function checkout_book(self):
+        IF NOT self.available:
+            PRINT Book is unavailable.
+        ELSE:
+            self.available = FALSE
+            self.checkouts += 1
+            self.due_date = datetime.now() + timedelta(weeks=2)
+            PRINT Book checked out succesfully.
+    
+    function return_book(self):
+        self.available = True
+        self.due_date = None
+        PRINT Book returned succesfully.
 
+books_list = []
 
+function books_to_objects():
+    FOR book in library_books:
+        books_list.append(Book(
+            book[id],
+            book[title],
+            book[author],
+            book[genre],
+            book[available],
+            book[due_date],
+            book[checkouts]))
+
+function show_available_books():
+    table = prettytable
+    table.toprow(Book ID, Title, Author)
+    FOR book IN books_list:
+        IF book.available:
+            table.append(book.book_id, book.title, book.author)
+    PRINT table
+
+function search_books(query):
+    matching_books = []
+    FOR book IN books_list:
+        IF book.author.lower() == query.lower() OR book.genre.lower() == query.lower():
+            matching_books.append(book)
+    RETURN matching_books
+
+function show_overdue_books():
+    table = prettytable
+    table.toprow(Book ID, Title, Author)
+    FOR book in books_list:
+        IF NOT book.available:
+            time_difference = book.due_date - datetime.now()
+            IF time_difference.total_seconds() < 0:
+                table.append(book.book_id, book.title, book.author)
+    PRINT table
+
+function show_top_checkouts():
+    table = prettytable
+    table.toprow(Book ID, Title, Author)
+    temp_books_list = books_list
+    top_books = []
+    REPEAT 3:
+        max = 0
+        top_book = None
+        FOR book in temp_books_list:
+            IF book.checkouts > max:
+                max = book.checkouts
+                top_book = book
+        top_books.append(top_book)
+        table.append(top_book.book_id, top_book.title, top_book.author)
+        temp_books_list.remove(top_book)
+    
+function show_cli():
+    PRINT Welcome to the Library Management System!\n
+    WHILE True:
+        PRINT Please select one of the following options:
+        PRINT 1. Show available books.
+        PRINT 2. Search for book.
+        PRINT 3. Checkout book.
+        PRINT 4. Return book.
+        PRINT 5. Show overdue books.
+        PRINT 6. Show top 3 most checked out books.
+        PRINT 7. Exit.
+        menu_option = INPUT Enter a number: 
+        IF menu_option == 1:
+            show_available_books()
+        ELSE IF menu_option == 2:
+            table = prettytable
+            table.toprow(Book ID, Title, Author)
+            user_query = INPUT Enter your search query:
+            FOR book IN search_books(user_query):
+                table.append(book.book_id, book.title, book.author)
+            PRINT table
+        ELSE IF menu_option == 3:
+            user_query = INPUT Enter the ID of the book you want to checkout: 
+            FOR book in books_list:
+                IF book.book_id == user_query:
+                    book.checkout_book()
+                    BREAK
+            ELSE:
+                PRINT No matching book ID.
+        ELSE IF menu_option == 4:
+            user_query = INPUT Enter the ID of the book you want to return: 
+            FOR book in books_list:
+                IF book.book_id == user_query:
+                    book.return_book()
+                    BREAK
+            ELSE:
+                PRINT No matching book ID.
+        ELSE IF menu_option == 5:
+            show_overdue_books()
+        ELSE IF menu_option == 6:
+            show_top_checkouts()
+        ELSE IF menu_option == 7:
+            PRINT Thanks for using the Library Management System. Goodbye!
+            BREAK
+        ELSE:
+            PRINT Please enter a valid menu option. Valid options are (1, 2, 3, 4, 5, 6, 7).
+
+Solve:
 class Book:
     """Class representing each book in the library."""
 
@@ -51,105 +178,15 @@ class Book:
 
     def return_book(self) -> None:
         """Return a book."""
-        # Check if book is already available.
-        if self.available:
-            # Print available message.
-            print("Book is already available.")
-        else:
-            # Set book availability to True.
-            # Clear due date.
-            self.available = True
-            self.due_date = None
+        # Set book availability to True.
+        # Clear due date.
+        self.available = True
+        self.due_date = None
 
-            # Print success message.
-            print("Book returned successfully.")
+        # Print success message.
+        print("Book returned successfully.")
 
 books_list: list[Book] = []
-
-# -------- Level 1 - Changed by Level 5 --------
-# Function that shows all books that are currently available.
-# Output includes book ID, title, and author.
-
-def show_available_books() -> None:
-    """Display all available books in a table format."""
-    # Create table with headers.
-    table = PrettyTable()
-    table.field_names = ["Book ID", "Title", "Author"]
-
-    # Append row to table for each available book.
-    for book in books_list:
-        if book.available:
-            table.add_row([book.book_id, book.title, book.author])
-
-    # Show table.
-    print(table)
-
-# -------- Level 2 - Changed by Level 5 --------
-# Function that returns books with same author or genre.
-# Search is case-insensitive.
-# Returns a list of matching books.
-
-def search_books(query: str) -> list[Book]:
-    """Search for books by matching author or genre. Return list of matching books."""
-    # Empty list to hold matching books.
-    matching_books: list[Book] = []
-
-    # Check each book for matching author or genre.
-    # If matching, append to matching_books list.
-    for book in books_list:
-        if (book.author.lower() == query.lower() or book.genre.lower() == query.lower()):  # noqa: E501
-            matching_books.append(book)
-
-    # Return matching books.
-    return matching_books
-
-
-# -------- Level 3 - Changed by Level 5 --------
-# Function that checks out a book by its ID.
-# If the book is available:
-#   - Mark it unavailable.
-#   - Set the due_date to 2 weeks from today.
-#   - Increment the checkouts counter.
-# If it is not available:
-#   - Print a message saying it's unavailable.
-
-# Moved to Book class.
-
-
-# -------- Level 4 - Changed by Level 5 --------
-# Function that returns a book by its ID.
-# Sets the book's availability to True and clears the due date.
-
-# Moved to Book class.
-
-# Function that shows all overdue books.
-# A book is overdue if its due_date is before today AND it is still checked out.
-
-def show_overdue_books() -> None:
-    """Display all overdue books in a table format."""
-    # Create table with headers.
-    table = PrettyTable()
-    table.field_names = ["Book ID", "Title", "Author"]
-
-    # Append row to table for each overdue book.
-    for book in books_list:
-        if not book.available and book.due_date is not None:
-            # Get time difference between due date and now.
-            time_difference: timedelta = book.due_date.replace(tzinfo=timezone.utc) - datetime.now(tz=timezone.utc)  # noqa: E501
-
-            # If time difference is negative, add book to table.
-            if time_difference.total_seconds() < 0:
-                table.add_row([book.book_id, book.title, book.author])
-
-    # Show table.
-    print(table)
-
-
-# -------- Level 5 --------
-# Convert data into Book objects from Book class using books_to_objects function.
-# Include child functions of return and checkout in Book class.
-
-# Class is at top of file.
 
 def books_to_objects() -> None:
     """Convert library_books dicts to Book objects and store in books_list."""
@@ -171,7 +208,52 @@ def books_to_objects() -> None:
             checkouts=book["checkouts"],
         ))
 
-# Implementation of showing top checkouts for CLI.
+def show_available_books() -> None:
+    """Display all available books in a table format."""
+    # Create table with headers.
+    table = PrettyTable()
+    table.field_names = ["Book ID", "Title", "Author"]
+
+    # Append row to table for each available book.
+    for book in books_list:
+        if book.available:
+            table.add_row([book.book_id, book.title, book.author])
+
+    # Show table.
+    print(table)
+
+def search_books(query: str) -> list[Book]:
+    """Search for books by matching author or genre. Return list of matching books."""
+    # Empty list to hold matching books.
+    matching_books: list[Book] = []
+
+    # Check each book for matching author or genre.
+    # If matching, append to matching_books list.
+    for book in books_list:
+        if (book.author.lower() == query.lower() or book.genre.lower() == query.lower()):  # noqa: E501
+            matching_books.append(book)
+
+    # Return matching books.
+    return matching_books
+
+def show_overdue_books() -> None:
+    """Display all overdue books in a table format."""
+    # Create table with headers.
+    table = PrettyTable()
+    table.field_names = ["Book ID", "Title", "Author"]
+
+    # Append row to table for each overdue book.
+    for book in books_list:
+        if not book.available and book.due_date is not None:
+            # Get time difference between due date and now.
+            time_difference: timedelta = book.due_date.replace(tzinfo=timezone.utc) - datetime.now(tz=timezone.utc)  # noqa: E501
+
+            # If time difference is negative, add book to table.
+            if time_difference.total_seconds() < 0:
+                table.add_row([book.book_id, book.title, book.author])
+
+    # Show table.
+    print(table)
 
 def show_top_checkouts() -> None:
     """Display the top 3 most checked out books."""
@@ -208,10 +290,6 @@ def show_top_checkouts() -> None:
 
     # Show table.
     print(table)
-
-# Create simple CLI that allows the user to choose different options.
-# Allow the user to choose from the following:
-# available books, search, checkout, return, overdue books, and top 3 checked out books.
 
 def show_cli() -> None:  # noqa: C901, PLR0912
     """Run the user-interactable command line interface."""
@@ -294,13 +372,5 @@ def show_cli() -> None:  # noqa: C901, PLR0912
             print("Please enter a valid menu option.", end=" ")
             print("Valid options are (1, 2, 3, 4, 5, 6, 7).")
 
-# -------- Optional Advanced Features --------
-# You can implement these to move into Tier 4:
-# - Add a new book (via input) to the catalog
-# - Partial title/author/genre search
-# - Save/load catalog to file (CSV or JSON)
-# - Number of copies total, available, and unavailable
-
-if __name__ == "__main__":
-    books_to_objects()
-    show_cli()
+Examine:
+The code is very functional and performant. The base functionality is perfect and it includes some quality of life features like checking user input and if books are available/unavailable. The performance is good (it's a simple Python program, it's going to be performant either way). The readability is good in some parts but is lacking in others, like in the class definition. The CLI is pretty usable but some formatting changes could help usability as well.
