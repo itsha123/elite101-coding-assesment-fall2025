@@ -1,0 +1,170 @@
+Understand: Add support for multiple copies of books, with total, available, and unavailable books. This will create a new system where each copy is a BookCopy object stored in a Book for each title. Edit overall book displays to include more information (such as copies) for more clarity. Add support for loading and exporting catalog to CSV. To do this, when starting program ask user if they want to load default catalog or custom catalog from file. Add exporting as a menu option. Add support for adding new books to the catalog as a menu option. Add support for partial search by author, genre, or title. When going from assemble to solve, implement any suggestions by Ruff.
+
+Clues: I will have to make a new class for the multiple copies functionality. There will be a list in the original class that has all the objects of the new class. I will use python's csv module for exporting and importing to CSV.
+
+Assemble:
+class Book:
+    function init(self, 
+    book_id, 
+    title, 
+    author, 
+    genre, 
+    checkouts):
+        self.book_id = book_id
+        self.title = title
+        self.author = author
+        self.genre = genre
+        self.copies = []
+        self.checkouts = checkouts
+    
+    function checkout_book(self):
+        FOR copy in self.copies:
+            IF copy.available:
+                copy.available = FALSE
+                self.checkouts += 1
+                copy.due_date = datetime.now() + timedelta(weeks=2)
+                PRINT Book checked out succesfully.
+                RETURN
+        PRINT No copies available.
+    
+    function return_book(self):
+        FOR copy in self.copies:
+            IF NOT copy.available
+                copy.available = TRUE
+                copy.due_date = None
+                PRINT Book returned succesfully.
+                RETURN
+        PRINT All copies already available.
+
+    function add_copy(self, available, due_date):
+        self.copies.append(BookCopy(available, due_date))
+
+class BookCopy:
+    function init(self,
+    available, 
+    due_date):
+        self.available = available
+        self.due_date = due_date
+
+function books_to_objects():
+    FOR book in library_books:
+        book_object = Book(
+            book[id],
+            book[title],
+            book[author],
+            book[genre],
+            book[checkouts])
+        book_object.add_copy(book[available], book[due_date])
+        books_list.append()
+
+function show_available_books():
+    table = prettytable
+    table.toprow(Book ID, Title, Author, Total Copies, Available Copies)
+    FOR book IN books_list:
+        available_copies = 0
+        FOR copy IN book.copies:
+            IF copy.available:
+                available_copies += 1
+        IF available_copies > 0:
+            table.append(book.book_id, book.title, book.author, book.copies.len(), available_copies)
+    PRINT table
+
+function show_overdue_books():
+    table = prettytable
+    table.toprow(Book ID, Title, Author, Total Copies, Overdue Copies)
+    FOR book IN books_list:
+        overdue_copies = 0
+        FOR copy IN book.copies:
+            IF NOT copy.available:
+                time_difference = book.due_date - datetime.now()
+                IF time_difference.total_seconds() < 0:
+                    overdue_copies += 1
+        IF overdue_copies > 0:
+            table.append(book.book_id, book.title, book.author, book.copies.len(), overdue_copies)
+    PRINT table
+
+function search_books(query):
+    matching_books = []
+    FOR book IN books_list:
+        IF query.lower() IN book.author.lower() OR query.lower() IN book.genre.lower() OR query.lower() in book.title.lower():
+            matching_books.append(book)
+    RETURN matching_books
+
+function show_cli():
+    // Remove first print statement
+    // Rest of code unchanged
+    ELSE IF menu_option == 2:
+        table = prettytable
+        table.toprow(Book ID, Title, Author, Total Copies, Available Copies)
+        user_query = INPUT Enter your search query:
+        FOR book IN search_books(user_query):
+            available_copies = 0
+            FOR copy IN book.copies:
+                IF copy.available:
+                    available_copies += 1
+            table.append(book.book_id, book.title, book.author, book.copies.len(), available_copies)
+        PRINT table
+    // Rest of code unchanged
+    ELSE IF menu_option == 7:
+        user_input = []
+        user_input.append(INPUT Enter the book id: )
+        user_input.append(INPUT Enter the title: )
+        user_input.append(INPUT Enter the author: )
+        user_input.append(INPUT Enter the genre: )
+        user_input.append(INPUT Enter the number of checkouts: )
+        new_book = Book(
+            user_input[0],
+            user_input[1],
+            user_input[2],
+            user_input[3],
+            user_input[4])
+        user_total_copies = INPUT Enter the total copies: 
+        user_available_copies = INPUT Enter the number of available copies: 
+        REPEAT user_available_copies:
+            new_book.add_copy(TRUE, None)
+        REPEAT user_total_copies - user_available_copies:
+            new_book.add_copy(FALSE, None)
+        books_list.append(new_book)
+    ELSE IF menu_option == 8:
+        WITH open(catalog.csv, w, newline='') AS csvfile:
+            writer = csv.writer(csvfile)
+            FOR book IN books_list:
+                book_info = [book.book_id, book.title, book.author, book.genre, book.checkouts, book.copies.len()]
+                available_copies = 0
+                FOR copy IN book.copies:
+                    IF copy.available:
+                        available_copies += 1
+                book_info.append(available_copies)
+                writer.writerow(book_info)
+        PRINT Exported succesfully.
+    // Rest of code unchanged, just change the menu option
+
+if name == "main":
+    PRINT Welcome to the Library Management System!
+    WHILE TRUE:
+        user_query = INPUT Would you like to load the default catalog or import from file? (default/file)
+        IF user_query == default:
+            books_to_objects()
+            BREAK
+        ELSE IF user_query == file:
+            WITH open(catalog.csv, newline='') AS csvfile:
+                book_reader = csv.reader(csvfile)
+            FOR row IN book_reader:
+                file_book = Book(
+                    row[0],
+                    row[1],
+                    row[2],
+                    row[3],
+                    row[4])
+                REPEAT row[6]:
+                    file_book.add_copy(TRUE, None)
+                REPEAT row[5] - row[6]:
+                    file_book.add_copy(FALSE, None)
+                books_list.append(file_book)
+            BREAK
+        ELSE:
+            PRINT Invalid input. Please enter 'default' or 'file'.
+
+Solve: Current code in main.py
+
+Examine: The code works very well and after some tweaks, with no issues. It is performant, functional, and readable. Some things I would add is support for keeping the due date of each book copy when exporting and importing. I would also add support for checking out a specific copy of a book instead of just 1. Other than that, the new book copy system works great.

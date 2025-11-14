@@ -11,4 +11,4 @@ Solve:
 This is done in UCASE for each individual level.
 
 Examine:
-Will be completed after project is done. (If you're still seeing this, I either never finished or forgot about this.)
+The code is pretty performant, readable, and functional. It has all the features of a basic library inventory system, and with a few more tweaks could be used as a real system. One problem it has is that each copy does not retain it's due date information when being saved to file and when user inputs it. Another problem is that when checking out or returning books, you can't pick the specific copy that gets checked out, it's the first one in the list. Also, the CLI could be improved for usability. Other than that, there aren't really any problems. If I had more time, I would've continued until Level 7 instead of stopping at Level 6 and fixed the mentioned problems.

@@ -1,6 +1,6 @@
 # Elite 101 Coding Assesment - Class of Fall 2025
 
-This is the final coding assesment for the Code2College Fall 2025 Elite 101 interview prep class.
+This is the final coding assesment for the Code2College Fall 2025 Elite 101 internship prep class.
 
 ## Disclaimers
 
@@ -57,9 +57,10 @@ The purpose of this code is to make a Library Inventory and Checkout manager uti
 - Save & Load catalog to CSV
 - Add multiple copies functionality
 
-### Level 7 (My Addition)
+### Level 7 (My Addition) - Not Implemented
 
 - Use `tkinter` to make full GUI
 - Use Sun Valley theme
+- I did not get to this level
 
 <sup>A project made for Code2College.</sup>
