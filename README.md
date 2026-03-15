@@ -10,9 +10,13 @@ Google AI Overview was used to decide on psuedocode conventions, and ChatGPT was
 
 GitHub Copilot was used to help make the pyproject.toml file, to help fix issues found by Ruff, and to help fix bugs.
 
+## How to Try
+In main directory, run ```python main.py```
+
 ## Library Inventory and Checkout Manager
 
 The purpose of this code is to make a Library Inventory and Checkout manager utilizing the list of library books already provided. The functionality is split into multiple levels.
+
 
 ### Level 1
 
